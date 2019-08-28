@@ -9,6 +9,77 @@ enterprise: false
 
 ## Release Notes
 
+### Version 1.1.3 - Released 28 August 2019
+
+[Download](#TBA)
+
+| Kubernetes support | Version |
+| ------------------ | ------- |
+|**Minimum** | 1.15.0 |
+|**Maximum** | 1.15.x |
+|**Default** | 1.15.3 |
+
+#### Breaking changes
+
+N/A
+
+#### Improvements
+
+- Ability to specify additional SubjectAlternativeNames for the `kube-apiserver` certificate:
+
+```yaml
+kind: ClusterConfiguration
+apiVersion: konvoy.mesosphere.io/v1alpha1
+metadata:
+  name: konvoy
+spec:
+  kubernetes:
+    controlPlane:
+      certificate:
+        subjectAlternativeNames:
+        - mykonvoycluster
+```
+
+- Use default values in `cluster.yaml` for any missing fields.
+
+#### Addons improvements
+
+N/A
+
+#### Bug fixes
+
+- Fix a bug when using RHEL machines with `dex` enabled.
+
+#### Component version changes
+
+N/A
+
+#### Known issues and limitations
+
+Known issues and limitations don’t necessarily affect all customers, but might require changes to your environment to address specific scenarios.
+The issues are grouped by feature, functional area, or component.
+Where applicable, issue descriptions include one or more issue tracking identifiers enclosed in parenthesis for reference.
+
+-   Docker provisioner reports potential issues if there are insufficient resources.
+
+    If you attempt to deploy a cluster on a machine that does not have enough resources, you might see issues when the installation starts to deploy Addons.
+    For example, if you see an error message similar to _could not check tiller installation_, the root cause is typically insufficient resources.
+
+-   Dex should always be enabled.
+
+    For this release of Konvoy, `dex`, `dex-k8s-auth`, and `traefik-auth` are tightly coupled and must all be enabled.
+    Disabling any of these add-ons will prevent certain operations from working correctly.
+    This tight coupling will be addressed in a future release.
+
+-   The authentication token has no permissions.
+
+    After logging in through an identity provider, regardless of the source (password, or otherwise), the identified user has no permissions assigned.
+    To enable the authenticated user to perform administrative actions, you must manually add role bindings.
+
+-   Upgrades might fail when `workers` is set to one.
+
+    The upgrade command might fail when the cluster is configured with only one worker. To work around this issue, add an additional worker for the upgrade.
+
 ### Version 1.1.2 - Released 27 August 2019
 
 [Download](#TBA)
@@ -53,6 +124,8 @@ N/A
 Known issues and limitations don’t necessarily affect all customers, but might require changes to your environment to address specific scenarios.
 The issues are grouped by feature, functional area, or component.
 Where applicable, issue descriptions include one or more issue tracking identifiers enclosed in parenthesis for reference.
+
+-   Installation on RHEL machines will fail when `dex` is enabled.
 
 -   Docker provisioner reports potential issues if there are insufficient resources.
 
@@ -208,6 +281,8 @@ Known issues and limitations don’t necessarily affect all customers, but might
 The issues are grouped by feature, functional area, or component.
 Where applicable, issue descriptions include one or more issue tracking identifiers enclosed in parenthesis for reference.
 
+-   Installation on RHEL machines will fail preflight checks and there is no way to skip the checks.
+
 -   Docker provisioner reports potential issues if there are insufficient resources.
 
     If you attempt to deploy a cluster on a machine that does not have enough resources, you might see issues when the installation starts to deploy Addons.
@@ -306,6 +381,8 @@ all:
 Known issues and limitations don’t necessarily affect all customers, but might require changes to your environment to address specific scenarios.
 The issues are grouped by feature, functional area, or component.
 Where applicable, issue descriptions include one or more issue tracking identifiers enclosed in parenthesis for reference.
+
+-   Installation on RHEL machines will fail preflight checks and there is no way to skip the checks.
 
 -   Docker provisioner reports potential issues if there are insufficient resources.
 
@@ -438,6 +515,8 @@ For more information about any of these features,see the [Konvoy documentation][
 Known issues and limitations don’t necessarily affect all customers, but might require changes to your environment to address specific scenarios.
 The issues are grouped by feature, functional area, or component.
 Where applicable, issue descriptions include one or more issue tracking identifiers enclosed in parenthesis for reference.
+
+-   Installation on RHEL machines will fail preflight checks and there is no way to skip the checks.
 
 -   Docker provisioner reports potential issues if there are insufficient resources.
 

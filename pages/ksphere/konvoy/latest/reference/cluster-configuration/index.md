@@ -177,10 +177,17 @@ spec:
 
 | Parameter                                  | Description                                                    | Default  |
 | ------------------------------------------ | -------------------------------------------------------------- | -------- |
-| `controlPlane.controlPlaneEndpointOverride`| overrides the `control_plane_endpoint` from `inventory.yaml`   | `""`      |
-| `controlPlane.keepalived`                   | object that defines keepalived configuration                  | See [spec.kubernetes.controlPlane.keepalived](#speckubernetescontrolplanekeepalived)  |
+| `controlPlane.controlPlaneEndpointOverride`| overrides the `control_plane_endpoint` from `inventory.yaml`   | `""`     |
+| `controlPlane.certificate`                 | certificate related configurations for the control plane       | see [spec.kubernetes.controlPlane.certificate](#speckubernetescontrolplanecertificate) |
+| `controlPlane.keepalived`                  | object that defines keepalived configuration                   | see [spec.kubernetes.controlPlane.keepalived](#speckubernetescontrolplanekeepalived)   |
 
-### spec.kubernetes.controlPlane.keepalived
+#### spec.kubernetes.controlPlane.certificate
+
+| Parameter                             | Description                                                    | Default  |
+| --------------------------------------| ---------------------------------------------------------------| -------- |
+| `certificate.subjectAlternativeNames` | Subject Alternative Names (SAN) for the control plane endpoint | `[]`     |
+
+#### spec.kubernetes.controlPlane.keepalived
 
 | Parameter              | Description                      | Default  |
 | -----------------------| ---------------------------------| -------- |
